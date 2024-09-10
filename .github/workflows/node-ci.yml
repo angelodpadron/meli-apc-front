@@ -1,0 +1,34 @@
+name: Angular CI with Node
+
+on:
+  push:
+    branches: ["master", "develop", "feature/*"]
+  pull_request:
+    branches: ["master", "develop"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      # required for headless testing
+      - name: Install Chrome dependencies
+        run: sudo apt-get install -y libnss3 libgconf-2-4 libxss1 libasound2 google-chrome-stable
+      # Ensure CHROME_BIN is set for Karma
+      - name: Set CHROME_BIN environment variable
+        run: echo "CHROME_BIN=$(which google-chrome-stable)" >> $GITHUB_ENV
+      # Run tests in headless mode
+      - name: Run tests
+        run: npm run test
+    
