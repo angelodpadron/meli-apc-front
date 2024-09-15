@@ -1,7 +1,17 @@
 .content {
-  padding: 20px;
-  margin-top: 64px;
+  display: flex;
+  margin: 65px 100px;
 }
+
+.results {
+  flex: 1;
+  padding: 0 100px;
+}
+
+.filter-panel {
+  width: 300px;
+}
+
 
 #thumbnail-wrapper {
   width: 100px;
