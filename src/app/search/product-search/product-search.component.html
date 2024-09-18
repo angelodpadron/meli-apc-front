@@ -4,19 +4,36 @@
   } @else {
 
   <div class="filter-panel">
-    <h3>Filtros</h3>
+    @for (filter of filters; track filter.id) {
+    <strong>{{ filter.name }}</strong>
+    <mat-nav-list>
+      @for (value of filter.values; track value.id) {
+      <a
+        mat-list-item
+        role="itemlist"
+        (click)="toggleFilter(filter.id, value)"
+      >
+        {{ value.name }}
+      </a>
+      }
+    </mat-nav-list>
+    }
 
-    <!-- TODO: show applied filters here -->
+    <h3>Filtros</h3>
 
     @for (filter of availableFilters; track filter.id) {
     <strong>{{ filter.name }}</strong>
-    <mat-list>
+    <mat-nav-list>
       @for (value of filter.values; track value.id) {
-      <mat-list-item role="itemlist"
-        >{{ value.name }} ({{ value.results }})</mat-list-item
+      <a
+        mat-list-item
+        role="itemlist"
+        (click)="toggleFilter(filter.id, value)"
       >
+        {{ value.name }} ({{ value.results }})
+      </a>
       }
-    </mat-list>
+    </mat-nav-list>
     }
   </div>
   <div class="results">

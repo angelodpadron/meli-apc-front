@@ -12,10 +12,13 @@ export class SearchService {
 
   private searchUrl = 'http://localhost:8080/api/products/search';
 
-  findByKeyword(searchTerm: string): Observable<MeliSearchResponse> {
+  findByKeyword(
+    searchTerm: string,
+    filters?: { [key: string]: string }
+  ): Observable<MeliSearchResponse> {
     return this.http
       .get<ApiResponse<MeliSearchResponse>>(this.searchUrl, {
-        params: { keyword: searchTerm },
+        params: { keyword: searchTerm, ...filters },
       })
       .pipe(map((response) => response.payload));
   }
