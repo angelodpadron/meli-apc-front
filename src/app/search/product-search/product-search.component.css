@@ -1,0 +1,28 @@
+.content {
+  display: flex;
+  margin: 65px 100px;
+}
+
+.results {
+  flex: 1;
+  padding: 0 100px;
+}
+
+.filter-panel {
+  width: 300px;
+}
+
+
+#thumbnail-wrapper {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+#thumbnail-wrapper > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
