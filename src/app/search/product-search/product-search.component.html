@@ -1,0 +1,95 @@
+<div class="content">
+  @if(!loaded) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  } @else {
+
+  <div class="filter-panel">
+    @for (filter of filters; track filter.id) {
+    <strong>{{ filter.name }}</strong>
+    <mat-nav-list>
+      @for (value of filter.values; track value.id) {
+      <a
+        mat-list-item
+        role="itemlist"
+        (click)="toggleFilter(filter.id, value)"
+      >
+        {{ value.name }}
+      </a>
+      }
+    </mat-nav-list>
+    }
+
+    <h3>Filtros</h3>
+
+    @for (filter of availableFilters; track filter.id) {
+    <strong>{{ filter.name }}</strong>
+    <mat-nav-list>
+      @for (value of filter.values; track value.id) {
+      <a
+        mat-list-item
+        role="itemlist"
+        (click)="toggleFilter(filter.id, value)"
+      >
+        {{ value.name }} ({{ value.results }})
+      </a>
+      }
+    </mat-nav-list>
+    }
+  </div>
+  <div class="results">
+    @if (products.length) {
+    <h1>Resultados para "{{ searchTerm }}"</h1>
+    <table mat-table [dataSource]="products" class="mat-elevation-z8">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Precio</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.price | currency }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="available_quantity">
+        <th mat-header-cell *matHeaderCellDef>Stock disponible</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.available_quantity }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="thumbnail">
+        <th mat-header-cell *matHeaderCellDef>Imagen</th>
+        <td mat-cell *matCellDef="let element">
+          <div id="thumbnail-wrapper">
+            <img [src]="element.thumbnail" alt="Imagen del producto" />
+          </div>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="[
+          'id',
+          'title',
+          'price',
+          'available_quantity',
+          'thumbnail'
+        ]"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: ['id', 'title', 'price', 'available_quantity', 'thumbnail']
+        "
+      ></tr>
+    </table>
+    } @else {
+    <h1>No se encontraron resultados para {{ searchTerm }}</h1>
+    }
+  </div>
+  }
+</div>

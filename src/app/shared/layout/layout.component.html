@@ -1,0 +1,11 @@
+<mat-toolbar>
+  <span>MELI APC</span>
+  <span class="spacer"></span>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <input
+      matInput
+      placeholder="Buscar productos"
+      (keyup.enter)="onSearch($event)"
+    />
+  </mat-form-field>
+</mat-toolbar>
