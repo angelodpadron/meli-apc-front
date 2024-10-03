@@ -1,29 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LayoutComponent } from './layout.component';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthHandlerComponent } from './auth-handler.component';
 
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 
-describe('LayoutComponent', () => {
-  let component: LayoutComponent;
-  let fixture: ComponentFixture<LayoutComponent>;
+describe('AuthHandlerComponent', () => {
+  let component: AuthHandlerComponent;
+  let fixture: ComponentFixture<AuthHandlerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
-        LayoutComponent,
+        AuthHandlerComponent,
       ],
-      imports: [LayoutComponent, BrowserAnimationsModule],
+      imports: [AuthHandlerComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LayoutComponent);
+    fixture = TestBed.createComponent(AuthHandlerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

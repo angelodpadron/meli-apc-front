@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Iniciar sesion</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="loginForm">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        placeholder="some@email.com"
+        formControlName="email"
+        matInput
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password" required="" />
+    </mat-form-field>
+  </form>
+  <p>¿No tienes una cuenta? <a mat-dialog-close (click)="onRegister()">Registrate</a></p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button [disabled]="loginForm.invalid" (click)="onLogin()">
+    Iniciar sesion
+  </button>  
+</mat-dialog-actions>
