@@ -36,6 +36,7 @@ import { LoginComponent } from '../login/login.component';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  errorMessage: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,6 +48,7 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
+    this.errorMessage = '';
   }
 
   onCancel(): void {
@@ -66,7 +68,7 @@ export class RegisterComponent {
         this.dialogRef.close({ success: true, data: response });
       },
       error: (error) => {
-        console.error('Error registering:', error);
+        this.errorMessage = error.message;
       },
     });
   }
@@ -74,7 +76,7 @@ export class RegisterComponent {
   onLogin() {
     this.dialogRef.close();
     this.dialog.open(LoginComponent, {
-      width: '300px',
+      width: '400px',
     });
   }
 }

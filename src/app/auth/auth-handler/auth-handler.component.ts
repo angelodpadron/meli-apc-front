@@ -18,7 +18,7 @@ export class AuthHandlerComponent {
 
   openLoginDialog() {
     this.dialog.open(LoginComponent, {
-      width: '300px',
+      width: '400px',
     });
   }
 

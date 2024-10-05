@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { ApiResponse } from '../models/api-response';
 
 @Injectable({
@@ -22,7 +22,8 @@ export class AuthService {
           next: (response) => {
             localStorage.setItem('token', response.payload);
           },
-        })
+        }),
+        catchError(this.handleErrorResponse)
       );
   }
 
@@ -37,8 +38,20 @@ export class AuthService {
           next: (response) => {
             localStorage.setItem('token', response.payload);
           },
-        })
+        }),
+        catchError(this.handleErrorResponse)
       );
+  }
+
+  private handleErrorResponse(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'Unknown error occurred';
+
+    // Check if the error response includes a message from your ApiResponse
+    if (error.error && error.error.message) {
+      errorMessage = error.error.message;
+    }
+
+    return throwError(() => new Error(errorMessage));
   }
 
   logged(): boolean {

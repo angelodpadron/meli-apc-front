@@ -1,8 +1,8 @@
 <h2 mat-dialog-title>Registrarse</h2>
 
 <mat-dialog-content>
-  <form [formGroup]="registerForm">
-    <mat-form-field>
+  <form class="form-container" [formGroup]="registerForm">
+    <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input
         type="email"
@@ -12,11 +12,15 @@
         required
       />
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Contraseña</mat-label>
       <input matInput type="password" formControlName="password" required="" />
     </mat-form-field>
   </form>
+  @if(errorMessage) {
+  <mat-error>{{ errorMessage }}</mat-error>
+  }
+  <br />
   <p>
     ¿Ya tienes una cuenta?
     <a mat-dialog-close (click)="onLogin()">Iniciar sesion</a>
