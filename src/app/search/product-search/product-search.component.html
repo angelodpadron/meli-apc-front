@@ -1,6 +1,6 @@
 <div class="content">
   @if(!loaded) {
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar mode="query"></mat-progress-bar>
   } @else {
 
   <div class="filter-panel">
@@ -35,7 +35,9 @@
       }
     </mat-nav-list>
     }
+  
   </div>
+
   <div class="results">
     @if (products.length) {
     <h1>Resultados para "{{ searchTerm }}"</h1>
@@ -72,19 +74,19 @@
       <tr
         mat-header-row
         *matHeaderRowDef="[
-          'id',
+          'thumbnail',
           'title',
           'price',
           'available_quantity',
-          'thumbnail'
         ]"
       ></tr>
       <tr
         mat-row
         *matRowDef="
           let row;
-          columns: ['id', 'title', 'price', 'available_quantity', 'thumbnail']
+          columns: ['thumbnail','title', 'price', 'available_quantity']
         "
+        (click)="openProduct(row.id)"
       ></tr>
     </table>
     } @else {

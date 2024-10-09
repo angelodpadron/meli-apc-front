@@ -54,6 +54,10 @@ export class AuthService {
     return throwError(() => new Error(errorMessage));
   }
 
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
   logged(): boolean {
     return !!localStorage.getItem('token');
   }

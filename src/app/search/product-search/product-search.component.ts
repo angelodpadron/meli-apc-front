@@ -8,6 +8,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatListModule } from '@angular/material/list';
 import { SearchFilter } from '../../models/api-search-filter';
 import { FilterValue } from '../../models/filter-value';
+import { MatDialog } from '@angular/material/dialog';
+import { ProductDetailsDialogComponent } from '../../product/product-details-dialog/product-details-dialog.component';
 
 @Component({
   selector: 'app-product-search',
@@ -17,6 +19,7 @@ import { FilterValue } from '../../models/filter-value';
   styleUrl: './product-search.component.css',
 })
 export class ProductSearchComponent {
+  
   searchTerm: string = '';
   filterParams: { [key: string]: string } = {};
   products: Product[] = [];
@@ -24,13 +27,14 @@ export class ProductSearchComponent {
   availableFilters: SearchFilter[] = [];
 
   loaded = false;
-
+  
   constructor(
     private searchService: SearchService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
-
+  
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.searchTerm = params['keyword'];
@@ -53,7 +57,7 @@ export class ProductSearchComponent {
         error: (error) => console.error(error),
       });
   }
-
+  
   toggleFilter(filterId: string, value: FilterValue) {
     // create a query object with the current filters
     const query: { [key: string]: string } = this.filters.reduce<{
@@ -62,7 +66,7 @@ export class ProductSearchComponent {
       acc[filter.id] = filter.values.map((value) => value.id).join(',');
       return acc;
     }, {});
-
+    
     // check if query has an entry for the filterId, if so, remove it, otherwise add it
     if (query[filterId]) {
       delete query[filterId];
@@ -77,6 +81,13 @@ export class ProductSearchComponent {
         ...query,
       },
       queryParamsHandling: 'replace',
+    });
+  }
+
+  openProduct(meliProductId: string) { 
+    this.dialog.open(ProductDetailsDialogComponent, {
+      width: '600px',
+      data: { meliProductId },
     });
   }
 }
