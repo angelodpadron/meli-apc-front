@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { MeliSearchResponse } from '../models/api-search-response';
-import { ApiResponse } from '../models/api-response';
-import { Product } from '../models/product';
+import { MeliSearchResponse } from '../../models/search/meli-search-response';
+import { ApiResponse } from '../../models/api-response';
+import { Product } from '../../models/product/product';
 
 @Injectable({
   providedIn: 'root',

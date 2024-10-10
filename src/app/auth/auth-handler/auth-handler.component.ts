@@ -3,13 +3,14 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-auth-handler',
   standalone: true,
-  imports: [MatIcon, MatIconButton, MatMenuModule],
+  imports: [MatIcon, MatIconButton, MatMenuModule, RouterModule],
   templateUrl: './auth-handler.component.html',
   styleUrl: './auth-handler.component.css',
 })

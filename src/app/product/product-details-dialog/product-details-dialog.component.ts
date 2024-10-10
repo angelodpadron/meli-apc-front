@@ -2,10 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { Product } from '../../models/product';
-import { SearchService } from '../../services/search.service';
+import { Product } from '../../models/product/product';
+import { SearchService } from '../../services/search/search.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { CreateBookmarkDialogComponent } from '../create-bookmark-dialog/create-bookmark-dialog.component';
+import { CreateBookmarkDialogComponent } from '../../bookmark/create-bookmark-dialog/create-bookmark-dialog.component';
 
 @Component({
   selector: 'app-product-details-dialog',

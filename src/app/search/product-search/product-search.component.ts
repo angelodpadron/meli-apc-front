@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { SearchService } from '../../services/search.service';
-import { Product } from '../../models/product';
+import { SearchService } from '../../services/search/search.service';
+import { Product } from '../../models/product/product';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { CurrencyPipe } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatListModule } from '@angular/material/list';
-import { SearchFilter } from '../../models/api-search-filter';
-import { FilterValue } from '../../models/filter-value';
+import { SearchFilter } from '../../models/search/search-filter';
+import { FilterValue } from '../../models/search/filter-value';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductDetailsDialogComponent } from '../../product/product-details-dialog/product-details-dialog.component';
 

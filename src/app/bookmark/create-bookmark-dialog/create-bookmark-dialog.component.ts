@@ -16,7 +16,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { BookmarkServiceService } from '../../services/bookmark-service.service';
+import { BookmarkService } from '../../services/bookmark/bookmark.service';
 
 @Component({
   selector: 'app-create-bookmark-dialog',
@@ -41,7 +41,7 @@ export class CreateBookmarkDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
-    private bookmarkService: BookmarkServiceService,
+    private bookmarkService: BookmarkService,
     private dialogRef: MatDialogRef<CreateBookmarkDialogComponent>
   ) {
     this.form = this.formBuilder.group({

@@ -1,18 +1,15 @@
-<div class="content">
-  @if(!loaded) {
-  <mat-progress-bar mode="query"></mat-progress-bar>
-  } @else {
-
+@if(!loaded) {
+  <div class="progress-bar">
+    <mat-progress-bar mode="query"></mat-progress-bar>
+  </div>
+} @else {
+  <div class="content">
   <div class="filter-panel">
     @for (filter of filters; track filter.id) {
     <strong>{{ filter.name }}</strong>
     <mat-nav-list>
       @for (value of filter.values; track value.id) {
-      <a
-        mat-list-item
-        role="itemlist"
-        (click)="toggleFilter(filter.id, value)"
-      >
+      <a mat-list-item role="itemlist" (click)="toggleFilter(filter.id, value)">
         {{ value.name }}
       </a>
       }
@@ -25,17 +22,12 @@
     <strong>{{ filter.name }}</strong>
     <mat-nav-list>
       @for (value of filter.values; track value.id) {
-      <a
-        mat-list-item
-        role="itemlist"
-        (click)="toggleFilter(filter.id, value)"
-      >
+      <a mat-list-item role="itemlist" (click)="toggleFilter(filter.id, value)">
         {{ value.name }} ({{ value.results }})
       </a>
       }
     </mat-nav-list>
     }
-  
   </div>
 
   <div class="results">
@@ -73,18 +65,13 @@
 
       <tr
         mat-header-row
-        *matHeaderRowDef="[
-          'thumbnail',
-          'title',
-          'price',
-          'available_quantity',
-        ]"
+        *matHeaderRowDef="['thumbnail', 'title', 'price', 'available_quantity']"
       ></tr>
       <tr
         mat-row
         *matRowDef="
           let row;
-          columns: ['thumbnail','title', 'price', 'available_quantity']
+          columns: ['thumbnail', 'title', 'price', 'available_quantity']
         "
         (click)="openProduct(row.id)"
       ></tr>
@@ -93,5 +80,5 @@
     <h1>No se encontraron resultados para {{ searchTerm }}</h1>
     }
   </div>
-  }
 </div>
+}

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LayoutComponent } from './layout.component';
+import { HeaderComponent } from './toolbar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -9,21 +9,21 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 
-describe('LayoutComponent', () => {
-  let component: LayoutComponent;
-  let fixture: ComponentFixture<LayoutComponent>;
+describe('ToolbarComponent', () => {
+  let component: HeaderComponent;
+  let fixture: ComponentFixture<HeaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
-        LayoutComponent,
+        HeaderComponent,
       ],
-      imports: [LayoutComponent, BrowserAnimationsModule],
+      imports: [HeaderComponent, BrowserAnimationsModule],
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LayoutComponent);
+    fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
