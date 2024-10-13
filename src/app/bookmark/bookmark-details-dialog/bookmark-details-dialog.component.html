@@ -1,0 +1,38 @@
+@if(bookmarkDetails) {
+    <h2 mat-dialog-title>Detalles del Marcador</h2>
+    <mat-dialog-content class="mat-typography">
+            <p><strong>Titulo:</strong> {{ bookmarkDetails.product_title }} (*)</p>
+            @if(editPending) {
+                <p><strong>Comentario:</strong> {{ bookmarkDetailsDraft?.comment }} (*)</p>
+                <p><strong>Estrellas:</strong> {{ bookmarkDetailsDraft?.stars }} (*)</p>
+            } @else {
+                <p><strong>Comentario:</strong> {{ bookmarkDetails.comment || 'No hay comentarios' }}</p>
+                <p><strong>Estrellas:</strong> {{ bookmarkDetails.stars || 'Sin calificación' }}</p>
+            }
+            <img [src]="bookmarkDetails.thumbnail" alt="Imagen del producto" class="product-image" />
+
+            @if(editPending){
+                <hr />
+                <small>(*) Cambios pendientes de guardar</small>
+            }
+
+    </mat-dialog-content>
+    @if(errorString) {
+        <mat-dialog-content class="mat-typography">
+            <p>{{ errorString }}</p>
+        </mat-dialog-content>
+    }    
+    <mat-dialog-actions align="end">
+        @if(editPending) {
+            <button mat-button (click)="saveEdit()">Guardar cambios</button>
+        } @else {
+            <button mat-button (click)="editBookmark(bookmarkDetails)">Editar</button>
+        }
+        <button mat-button color="warn" (click)="deleteBookmark(bookmarkDetails)">Eliminar</button>
+        <button mat-button [mat-dialog-close]="true">Cerrar</button>
+    </mat-dialog-actions>
+} @else {
+    <mat-dialog-content>
+        <p>Cargando detalles del marcador...</p>
+    </mat-dialog-content>
+}
