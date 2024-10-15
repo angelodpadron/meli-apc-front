@@ -15,7 +15,7 @@ import {
 } from '@angular/material/dialog';
 import { MatFormFieldModule, MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { LoginComponent } from '../login/login.component';
 
 @Component({

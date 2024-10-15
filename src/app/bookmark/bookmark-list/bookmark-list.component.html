@@ -1,0 +1,11 @@
+<h3>Productos guardados</h3>
+<mat-action-list>
+  @for(bookmark of bookmarks; track bookmark.id) {
+  <mat-list-item (click)="openDetails(bookmark.id)">
+    <img matListItemAvatar [src]="bookmark.thumbnail" />
+    <p matListItemTitle>{{ bookmark.product_title }}</p>
+    <p matListItemLine>Puntaje: {{ bookmark.stars }}</p>
+    <p matListItemMeta>#{{ bookmark.id }}</p>
+  </mat-list-item>
+  }
+</mat-action-list>

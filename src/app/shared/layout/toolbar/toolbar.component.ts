@@ -1,26 +1,27 @@
 import { Component } from '@angular/core';
 
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { AuthHandlerComponent } from '../../auth/auth-handler/auth-handler.component';
+import { AuthHandlerComponent } from '../../../auth/auth-handler/auth-handler.component';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'app-toolbar',
   standalone: true,
   imports: [
     RouterOutlet,
+    RouterLink,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
     AuthHandlerComponent,
   ],
-  templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css',
+  templateUrl: './toolbar.component.html',
+  styleUrl: './toolbar.component.css',
 })
-export class LayoutComponent {
+export class ToolbarComponent {
   constructor(private router: Router) {}
 
   async onSearch(event: any) {

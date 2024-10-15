@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-import { ApiResponse } from '../models/api-response';
+import { ApiResponse } from '../../models/api-response';
 
 @Injectable({
   providedIn: 'root',
@@ -52,6 +52,10 @@ export class AuthService {
     }
 
     return throwError(() => new Error(errorMessage));
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
   logged(): boolean {
