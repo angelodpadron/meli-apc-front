@@ -54,7 +54,7 @@ export class ProductSearchComponent {
           this.availableFilters = response.available_filters;
           this.loaded = true;
         },
-        error: (error) => console.error(error),
+        error: console.error,
       });
   }
   
@@ -86,7 +86,6 @@ export class ProductSearchComponent {
 
   openProduct(meliProductId: string) { 
     this.dialog.open(ProductDetailsDialogComponent, {
-      width: '600px',
       data: { meliProductId },
     });
   }

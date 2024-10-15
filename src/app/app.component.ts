@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from './shared/layout/toolbar/toolbar.component';
+import { ToolbarComponent } from './shared/layout/toolbar/toolbar.component';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, RouterOutlet],
+  imports: [ToolbarComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -32,7 +32,6 @@ export class AppComponent {
       'Intenta buscar algo supongo ¯\\_(ツ)_/¯',
       'Algo debería estar aquí... Pero no está (・_・;)',
       'Es y no es una landing page... Usted me entiende (¬‿¬)',
-      'Yo se que oyes mis pensamientos Galperin... Ñam ñam ñam ñam, ñam ñam ñam ñam (ಠ_ಠ)',
     ];
     this.write(templates[Math.floor(Math.random() * templates.length)]);
   }

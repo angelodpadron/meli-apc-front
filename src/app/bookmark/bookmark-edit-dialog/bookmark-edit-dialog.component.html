@@ -3,18 +3,14 @@
   <form class="form-container" [formGroup]="form">
     <mat-form-field appearance="outline">
       <mat-label>Comentario</mat-label>
-      <textarea
-        formControlName="comment"
-        matInput
-        required
-      ></textarea>
+      <textarea formControlName="comment" matInput required></textarea>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Calificacion</mat-label>
-       <mat-select formControlName="stars" required>
-        <mat-option *ngFor="let star of [1,2,3,4,5]" [value]="star">{{
-          star
-        }}</mat-option>
+      <mat-select formControlName="stars" required>
+        @for(star of [1,2,3,4,5]; track star) {
+        <mat-option [value]="star">{{ star }}</mat-option>
+        }
       </mat-select>
     </mat-form-field>
   </form>

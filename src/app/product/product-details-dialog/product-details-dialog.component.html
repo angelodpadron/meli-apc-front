@@ -1,24 +1,18 @@
-<ng-container *ngIf="product; else loading">
-  <h2 mat-dialog-title>{{ product.title }}</h2>
-  <mat-dialog-content>
-    <h6>{{ product.price | currency }}</h6>
-    <div class="image-container">
-      <img [src]="product.thumbnail" [alt]="product.title + ' image'" />
-    </div>
-    <p>
-      ここに商品の説明があるはずですが、今のところapiはその情報を提供していません。
-    </p>
-    <p>{{ product.available_quantity }} en stock</p>
-  </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true">Cerrar</button>
-    <button mat-button (click)="onSave(product)">Guardar</button>
-  </mat-dialog-actions>
-</ng-container>
-
-<ng-template #loading>
-  <h2 mat-dialog-title>Cargando...</h2>
-  <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true">Cerrar</button>
-  </mat-dialog-actions>
-</ng-template>
+@if(product){
+<h2 mat-dialog-title>{{ product.title }}</h2>
+<mat-dialog-content>
+  <h6>{{ product.price | currency }}</h6>
+  <div class="image-container">
+    <img [src]="product.thumbnail" [alt]="product.title + ' image'" />
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true">Cerrar</button>
+  <button mat-button (click)="onSave(product)">Guardar</button>
+</mat-dialog-actions>
+} @else {
+<h2 mat-dialog-title>Cargando...</h2>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true">Cerrar</button>
+</mat-dialog-actions>
+}

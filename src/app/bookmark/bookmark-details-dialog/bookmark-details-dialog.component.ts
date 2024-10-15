@@ -16,14 +16,20 @@ import { BookmarkEditDialogComponent } from '../bookmark-edit-dialog/bookmark-ed
   standalone: true,
   imports: [MatDialogModule, MatButtonModule, MatIconModule],
   templateUrl: './bookmark-details-dialog.component.html',
-  styleUrl: './bookmark-details-dialog.component.css',
+  styleUrls: ['./bookmark-details-dialog.component.css'],
 })
 export class BookmarkDetailsDialogComponent implements OnInit {
+  // Bookmark state
   bookmarkId: number;
   bookmarkDetails?: BookmarkDetails;
-  bookmarkDetailsDraft?: BookmarkDetails;
-  errorString: string;
+  initialBookmarkDetails?: BookmarkDetails;
+  
+  // Edit state
   editPending: boolean;
+  hasBeenEdited: boolean;
+  modifiedProperties?: { comment: boolean; stars: boolean };
+  
+  errorString?: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -31,63 +37,96 @@ export class BookmarkDetailsDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<BookmarkDetailsDialogComponent>,
     private dialog: MatDialog
   ) {
-    this.errorString = '';
     this.bookmarkId = data.bookmarkId;
     this.editPending = false;
+    this.hasBeenEdited = false;
   }
 
   ngOnInit() {
+    this.loadBookmarkDetails();
+  }
+
+  loadBookmarkDetails() {
     this.bookmarkService.getBookmarkDetails(this.bookmarkId).subscribe({
-      next: (bookmarkDetails) => (this.bookmarkDetails = bookmarkDetails),
+      next: (bookmarkDetails) => {
+        this.bookmarkDetails = bookmarkDetails;
+        this.initialBookmarkDetails = { ...bookmarkDetails };
+      },
+      error: this.handleError,
     });
   }
 
   deleteBookmark(bookmark: BookmarkDetails) {
     this.bookmarkService.deleteBookmark(bookmark.id).subscribe({
       next: () => {
-        this.dialogRef.close({
-          update: true,
-        });
+        this.dialogRef.close({ updateRequired: true });
       },
-      error: (error) => {
-        this.errorString = error;
-      },
+      error: (error) => this.handleError(error),
     });
   }
 
+  closeDialog() {
+    this.dialogRef.close({ updateRequired: this.hasBeenEdited });
+  }
+
+  // Open edit modal and track changes
   editBookmark(bookmark: BookmarkDetails) {
     const dialogRef = this.dialog.open(BookmarkEditDialogComponent, {
-      width: '600px',
       data: { bookmark },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result.bookmark) {
-        this.editPending = true;
-        this.bookmarkDetailsDraft = result.bookmark;
+    dialogRef.afterClosed().subscribe((output) => {
+      if (output && output.updatedBookmark) {
+        this.bookmarkDetails = output.updatedBookmark;
+        this.modifiedProperties = this.getModifiedProperties(output.updatedBookmark);
+        this.editPending = Object.values(this.modifiedProperties).some((prop) => prop);
       }
     });
   }
 
-  saveEdit() {
-    if (!this.bookmarkDetailsDraft) {
-      return;
-    }
-
-    const request = {
-      meli_id: this.bookmarkDetails!.post_id,
-      comment: this.bookmarkDetailsDraft.comment,
-      stars: this.bookmarkDetailsDraft.stars,
+  // Utility method to compare and detect changes in the bookmark
+  getModifiedProperties(updatedBookmark: BookmarkDetails) {
+    return {
+      comment: this.initialBookmarkDetails!.comment !== updatedBookmark.comment,
+      stars: this.initialBookmarkDetails!.stars !== updatedBookmark.stars,
     };
+  }
+
+  // Save edits to the backend and reset state after success
+  saveEdit() {
+    if (!this.editPending || !this.bookmarkDetails) return;
+
+    const request = this.buildSaveRequest();
 
     this.bookmarkService.editBookmark(this.bookmarkId, request).subscribe({
-      next: () => {
-        this.editPending = false;
-        this.bookmarkDetails = this.bookmarkDetailsDraft;
+      next: (bookmarkDetails) => {
+        this.bookmarkDetails = bookmarkDetails;
+        this.resetEditState();
+        this.hasBeenEdited = true;
       },
-      error: (error) => {
-        this.errorString = error;
-      },
+      error: this.handleError,
     });
+  }
+
+  // Build request payload
+  // TODO: change meli_id to post_id
+  buildSaveRequest() {
+    return {
+      meli_id: this.bookmarkDetails!.post_id,
+      comment: this.bookmarkDetails!.comment,
+      stars: this.bookmarkDetails!.stars,
+    };
+  }
+
+  // Reset the edit state after a successful save
+  resetEditState() {
+    this.initialBookmarkDetails = { ...this.bookmarkDetails! };
+    this.modifiedProperties = { comment: false, stars: false };
+    this.editPending = false;
+  }
+
+  handleError(error: any) {
+    this.errorString = error;
+    console.error('Error occurred:', error);
   }
 }

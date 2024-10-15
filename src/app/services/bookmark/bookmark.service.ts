@@ -4,7 +4,6 @@ import { map, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiResponse } from '../../models/api-response';
 import { AuthService } from '../auth/auth.service';
-import { Bookmark } from '../../models/bookmark/bookmark';
 import { BookmarkSummary } from '../../models/bookmark/bookmark-summary';
 import { BookmarkDetails } from '../../models/bookmark/bookmark-details';
 
@@ -71,13 +70,13 @@ export class BookmarkService {
   editBookmark(
     bookmarkId: number,
     bookmarkRequest: BookmarkRequest
-  ): Observable<Bookmark> {
+  ): Observable<BookmarkDetails> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authService.getToken()}`,
     });
 
     return this.http
-      .put<ApiResponse<Bookmark>>(
+      .put<ApiResponse<BookmarkDetails>>(
         `${this.baseUrl}/${bookmarkId}`,
         bookmarkRequest,
         {

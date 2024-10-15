@@ -2,12 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductSearchComponent } from './product-search.component';
 
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-
 import { provideRouter } from '@angular/router';
+import { SearchService } from '../../services/search/search.service';
 
 describe('ProductSearchComponent', () => {
   let component: ProductSearchComponent;
@@ -15,12 +11,20 @@ describe('ProductSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(withInterceptorsFromDi()),
-        provideRouter([]),
-        ProductSearchComponent,
-      ],
       imports: [ProductSearchComponent],
+      providers: [
+        {
+          provide: SearchService,
+          useValue: {
+            findByKeyword: (_query: any) => {
+              return {
+                subscribe: () => {},
+              };
+            },
+          },
+        },
+        provideRouter([]),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProductSearchComponent);

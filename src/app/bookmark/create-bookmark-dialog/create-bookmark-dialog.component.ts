@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import {
   FormBuilder,
@@ -29,7 +28,6 @@ import { BookmarkService } from '../../services/bookmark/bookmark.service';
     MatButtonModule,
     MatOptionModule,
     MatSelectModule,
-    CommonModule,
   ],
   templateUrl: './create-bookmark-dialog.component.html',
   styleUrl: './create-bookmark-dialog.component.css',

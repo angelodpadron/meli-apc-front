@@ -4,7 +4,6 @@ import { BookmarkService } from '../../services/bookmark/bookmark.service';
 import { BookmarkSummary } from '../../models/bookmark/bookmark-summary';
 import { MatDialog } from '@angular/material/dialog';
 import { BookmarkDetailsDialogComponent } from '../bookmark-details-dialog/bookmark-details-dialog.component';
-import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-bookmark-list',
@@ -33,12 +32,11 @@ export class BookmarkListComponent implements OnInit {
 
   openDetails(bookmarkId: number) {
     const dialogRef = this.dialog.open(BookmarkDetailsDialogComponent, {
-      width: '600px',
       data: { bookmarkId },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result.update) {
+    dialogRef.afterClosed().subscribe((output) => {
+      if (output && output.updateRequired) {
         this.initBookmarks();
       }
     });

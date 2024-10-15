@@ -5,15 +5,13 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelect, MatSelectModule } from '@angular/material/select';
-import { BookmarkDetails } from '../../models/bookmark/bookmark-details';
+import { MatSelectModule } from '@angular/material/select';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -29,7 +27,6 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatOptionModule,
     MatSelectModule,
-    CommonModule,
   ],
   templateUrl: './bookmark-edit-dialog.component.html',
   styleUrl: './bookmark-edit-dialog.component.css',
@@ -53,8 +50,8 @@ export class BookmarkEditDialogComponent {
 
   returnEditedBookmark() {
     this.dialogRef.close({
-      bookmark: {
-        id: this.data.bookmark.id,
+      updatedBookmark: {
+        ...this.data.bookmark,
         comment: this.form.value.comment,
         stars: this.form.value.stars,
       },

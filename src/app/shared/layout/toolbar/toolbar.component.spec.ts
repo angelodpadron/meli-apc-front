@@ -1,29 +1,36 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderComponent } from './toolbar.component';
+import { ToolbarComponent } from './toolbar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
+import { AuthHandlerComponent } from '../../../auth/auth-handler/auth-handler.component';
+import { AuthService } from '../../../services/auth/auth.service';
 
 describe('ToolbarComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+  let component: ToolbarComponent;
+  let fixture: ComponentFixture<ToolbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(withInterceptorsFromDi()),
-        HeaderComponent,
+      imports: [
+        ToolbarComponent,
+        BrowserAnimationsModule,
+        AuthHandlerComponent,
       ],
-      imports: [HeaderComponent, BrowserAnimationsModule],
-    })
-    .compileComponents();
+      providers: [
+        {
+          provide: AuthService,
+          useValue: {
+            logged: () => {},
+          },
+        },
+        provideRouter([]),
+      ],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(ToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

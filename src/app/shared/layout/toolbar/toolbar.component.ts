@@ -21,7 +21,7 @@ import { AuthHandlerComponent } from '../../../auth/auth-handler/auth-handler.co
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css',
 })
-export class HeaderComponent {
+export class ToolbarComponent {
   constructor(private router: Router) {}
 
   async onSearch(event: any) {
