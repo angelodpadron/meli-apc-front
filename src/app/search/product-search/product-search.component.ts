@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchService} from '../../services/search/search.service';
-import {Product} from '../../models/product/product';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatTableModule} from '@angular/material/table';
 import {CurrencyPipe} from '@angular/common';
@@ -10,6 +9,7 @@ import {SearchFilter} from '../../models/search/search-filter';
 import {FilterValue} from '../../models/search/filter-value';
 import {MatDialog} from '@angular/material/dialog';
 import {ProductDetailsDialogComponent} from '../../product/product-details-dialog/product-details-dialog.component';
+import ProductList from '../../models/product/product-list';
 
 @Component({
   selector: 'app-product-search',
@@ -22,7 +22,7 @@ export class ProductSearchComponent implements OnInit{
 
   searchTerm: string = '';
   filterParams: { [key: string]: string } = {};
-  products: Product[] = [];
+  products: ProductList[] = [];
   filters: SearchFilter[] = [];
   availableFilters: SearchFilter[] = [];
 

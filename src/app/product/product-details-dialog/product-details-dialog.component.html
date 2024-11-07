@@ -2,10 +2,10 @@
 <h2 mat-dialog-title>{{ product.title }}</h2>
 <mat-dialog-content>
   <h6>{{ product.price | currency }}</h6>
-  <p>{{product.description}}</p>
   <div class="image-container">
-    <img [src]="product.thumbnail" [alt]="product.title + ' image'" />
+    <img [src]="product.pictures[0].url" [alt]="product.title + ' image'" />
   </div>
+  <p>{{ product.description }}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button [mat-dialog-close]="true">Cerrar</button>

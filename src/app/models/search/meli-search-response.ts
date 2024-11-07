@@ -1,9 +1,9 @@
-import { Product } from '../product/product';
+import ProductList from '../product/product-list';
 import { SearchFilter } from './search-filter';
 
 
 export interface MeliSearchResponse {
-  results: Product[];
+  results: ProductList[];
   filters: SearchFilter[];
   available_filters: SearchFilter[];
 }

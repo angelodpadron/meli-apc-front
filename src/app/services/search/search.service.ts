@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { MeliSearchResponse } from '../../models/search/meli-search-response';
 import { ApiResponse } from '../../models/api-response';
-import { Product } from '../../models/product/product';
+import { ProductDetails } from '../../models/product/product-details';
 
 @Injectable({
   providedIn: 'root',
@@ -24,9 +24,9 @@ export class SearchService {
       .pipe(map((response) => response.payload));
   }
 
-  findById(id: string): Observable<Product> {
+  findById(id: string): Observable<ProductDetails> {
     return this.http
-      .get<ApiResponse<Product>>(`${this.baseUrl}/${id}`)
+      .get<ApiResponse<ProductDetails>>(`${this.baseUrl}/${id}`)
       .pipe(map((response) => response.payload));
   }
 }
