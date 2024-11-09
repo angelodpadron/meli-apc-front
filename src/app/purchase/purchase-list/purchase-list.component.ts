@@ -11,6 +11,7 @@ import {PurchaseResponse} from "../../models/purchase/purchase-response";
 import {PurchaseService} from "../../services/purchase/purchase.service";
 import {CurrencyPipe, DatePipe} from "@angular/common";
 import {MatDivider} from "@angular/material/divider";
+import {typewriter} from "../../shared/utils/typewriter";
 
 @Component({
   selector: 'app-purchase-list',
@@ -31,6 +32,7 @@ import {MatDivider} from "@angular/material/divider";
 })
 export class PurchaseListComponent implements OnInit {
   purchases: PurchaseResponse[] = []
+  noPurchasesMessage: string = "";
 
   constructor(private purchaseService: PurchaseService) {
   }
@@ -39,11 +41,18 @@ export class PurchaseListComponent implements OnInit {
     this.purchaseService
       .purchases()
       .subscribe({
-        next: (purchases) => (this.purchases = purchases),
+        next: (purchases) => {
+          this.purchases = purchases
+          if (!purchases.length) setTimeout(() => this.initNoPurchasesMessage(), 1000)
+        },
         error: (err) => console.error(err)
       })
   }
 
+  private initNoPurchasesMessage() {
+    const setter = (value: string) => this.noPurchasesMessage = value
+    typewriter("No hay compras para mostrar en este momento (・_・;)", setter)
+  }
 
 
 }
