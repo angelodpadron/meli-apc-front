@@ -1,0 +1,18 @@
+<h3>Compras realizadas</h3>
+<mat-action-list>
+  @for(purchase of purchases; track purchase.id) {
+    <mat-list-item>
+      <img matListItemAvatar [src]="purchase.product.thumbnail" />
+      <p matListItemTitle>{{ purchase.product.title }}</p>
+      <p matListItemLine>Fecha de compra: {{ purchase.created_at | date : 'd/M/y - H:mm:ss' }}</p>
+      <p matListItemLine>Precio: {{ purchase.product.price | currency }}</p>
+      <p matListItemLine>Cantidad: {{ purchase.quantity }}</p>
+      <p matListItemLine>Total: {{ purchase.total | currency }}</p>
+      <p matListItemMeta>#{{ purchase.id }}</p>
+    </mat-list-item>
+  } @empty {
+    <div class="centered-text">
+      <p>{{ noPurchasesMessage }}</p>
+    </div>
+  }
+</mat-action-list>

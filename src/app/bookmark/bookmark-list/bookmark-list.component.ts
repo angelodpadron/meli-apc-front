@@ -4,6 +4,7 @@ import { BookmarkService } from '../../services/bookmark/bookmark.service';
 import { BookmarkSummary } from '../../models/bookmark/bookmark-summary';
 import { MatDialog } from '@angular/material/dialog';
 import { BookmarkDetailsDialogComponent } from '../bookmark-details-dialog/bookmark-details-dialog.component';
+import {typewriter} from "../../shared/utils/typewriter";
 
 @Component({
   selector: 'app-bookmark-list',
@@ -14,6 +15,7 @@ import { BookmarkDetailsDialogComponent } from '../bookmark-details-dialog/bookm
 })
 export class BookmarkListComponent implements OnInit {
   bookmarks: BookmarkSummary[] = [];
+  noBookmarksMessage: string = "";
 
   constructor(
     private bookmarkService: BookmarkService,
@@ -26,8 +28,16 @@ export class BookmarkListComponent implements OnInit {
 
   private initBookmarks() {
     this.bookmarkService.getBookmarks().subscribe({
-      next: (bookmarks) => (this.bookmarks = bookmarks),
+      next: (bookmarks) => {
+        this.bookmarks = bookmarks
+        if (!bookmarks.length) setTimeout(() => this.initNoBookmarksMessage(), 1000)
+      },
     });
+  }
+
+  private initNoBookmarksMessage() {
+    const setter = (value: string) => this.noBookmarksMessage = value
+    typewriter("No hay productos guardados para mostrar en este momento (・_・;)", setter)
   }
 
   openDetails(bookmarkId: number) {

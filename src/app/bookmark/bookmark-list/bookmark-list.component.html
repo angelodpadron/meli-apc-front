@@ -7,5 +7,9 @@
     <p matListItemLine>Puntaje: {{ bookmark.stars }}</p>
     <p matListItemMeta>#{{ bookmark.id }}</p>
   </mat-list-item>
+  } @empty {
+    <div class="centered-text">
+      <p>{{ noBookmarksMessage }}</p>
+    </div>
   }
 </mat-action-list>

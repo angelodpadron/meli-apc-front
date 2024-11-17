@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { ToolbarComponent } from './shared/layout/toolbar/toolbar.component';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {ToolbarComponent} from './shared/layout/toolbar/toolbar.component';
+import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
+import {typewriter} from "./shared/utils/typewriter";
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent {
         if (this.router.url === '/') {
           this.isHomeRoute = true;
           this.message = '';
-          setTimeout(() => this.typeWritter(), 1000);
+          setTimeout(() => this.typeWriter(), 1000);
           return;
         }
         this.isHomeRoute = false;
@@ -27,21 +28,14 @@ export class AppComponent {
     });
   }
 
-  typeWritter() {
+  typeWriter() {
     const templates = [
       'Intenta buscar algo supongo ¯\\_(ツ)_/¯',
       'Algo debería estar aquí... Pero no está (・_・;)',
       'Es y no es una landing page... Usted me entiende (¬‿¬)',
     ];
-    this.write(templates[Math.floor(Math.random() * templates.length)]);
+    typewriter(templates[Math.floor(Math.random() * templates.length)], (value: string) => this.message = value);
   }
 
-  write(message: string, currentIndex: number = 0) {
-    if (currentIndex >= message.length) return;
-    this.message =
-      this.message.slice(0, -1) +
-      message.charAt(currentIndex) +
-      (currentIndex + 1 >= message.length ? '' : '▌');
-    setTimeout(() => this.write(message, currentIndex + 1), 25);
-  }
+
 }
