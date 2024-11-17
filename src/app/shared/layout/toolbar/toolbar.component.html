@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <span>MELI APC</span>
+  <a class="app-title" routerLink="/">MELI APC</a>
   <span class="spacer"></span>
   <mat-form-field appearance="outline" subscriptSizing="dynamic">
     <input
@@ -8,4 +8,6 @@
       (keyup.enter)="onSearch($event)"
     />
   </mat-form-field>
+  <span class="spacer"></span>
+  <app-auth-handler />
 </mat-toolbar>

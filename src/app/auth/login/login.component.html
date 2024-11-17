@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Iniciar sesion</h2>
+
+<mat-dialog-content>
+  <form class="form-container" [formGroup]="loginForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        placeholder="some@email.com"
+        formControlName="email"
+        matInput
+        required
+      />
+      @if(loginForm.get('email')?.invalid){
+      <mat-error>Email invalido</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password" required />
+      @if(loginForm.get('password')?.invalid) {
+      <mat-error>Contraseña invalida</mat-error>
+      }
+    </mat-form-field>
+  </form>
+  @if(errorMessage) {
+  <mat-error>{{ errorMessage }}</mat-error>
+  }
+  <br />
+  <p>
+    ¿No tienes una cuenta?
+    <a mat-dialog-close (click)="onRegister()">Registrate</a>
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button [disabled]="loginForm.invalid" (click)="onLogin()">
+    Iniciar sesion
+  </button>
+</mat-dialog-actions>

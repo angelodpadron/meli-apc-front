@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
-import { SearchService } from '../../services/search.service';
-import { Product } from '../../models/product';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatTableModule } from '@angular/material/table';
-import { CurrencyPipe } from '@angular/common';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatListModule } from '@angular/material/list';
-import { SearchFilter } from '../../models/api-search-filter';
-import { FilterValue } from '../../models/filter-value';
+import {Component, OnInit} from '@angular/core';
+import {SearchService} from '../../services/search/search.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatTableModule} from '@angular/material/table';
+import {CurrencyPipe} from '@angular/common';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatListModule} from '@angular/material/list';
+import {SearchFilter} from '../../models/search/search-filter';
+import {FilterValue} from '../../models/search/filter-value';
+import {MatDialog} from '@angular/material/dialog';
+import {ProductDetailsDialogComponent} from '../../product/product-details-dialog/product-details-dialog.component';
+import ProductList from '../../models/product/product-list';
 
 @Component({
   selector: 'app-product-search',
@@ -16,10 +18,11 @@ import { FilterValue } from '../../models/filter-value';
   templateUrl: './product-search.component.html',
   styleUrl: './product-search.component.css',
 })
-export class ProductSearchComponent {
+export class ProductSearchComponent implements OnInit{
+
   searchTerm: string = '';
   filterParams: { [key: string]: string } = {};
-  products: Product[] = [];
+  products: ProductList[] = [];
   filters: SearchFilter[] = [];
   availableFilters: SearchFilter[] = [];
 
@@ -28,7 +31,8 @@ export class ProductSearchComponent {
   constructor(
     private searchService: SearchService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -50,7 +54,7 @@ export class ProductSearchComponent {
           this.availableFilters = response.available_filters;
           this.loaded = true;
         },
-        error: (error) => console.error(error),
+        error: console.error,
       });
   }
 
@@ -77,6 +81,12 @@ export class ProductSearchComponent {
         ...query,
       },
       queryParamsHandling: 'replace',
+    });
+  }
+
+  openProduct(meliProductId: string) {
+    this.dialog.open(ProductDetailsDialogComponent, {
+      data: { meliProductId },
     });
   }
 }
