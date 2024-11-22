@@ -7,6 +7,7 @@ import {
 import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AuthService} from "../../services/auth/auth.service";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -15,12 +16,15 @@ describe('LoginComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [
-        LoginComponent,
         provideHttpClient(withInterceptorsFromDi()),
         {
           provide: MatDialogRef,
           useValue: { close: () => of(true) }, // Mock de MatDialogRef
         },
+        {
+          provide: AuthService,
+          useValue: { login: (_args: any) => ({ subscribe: () => {} }) }
+        }
       ],
       imports: [LoginComponent, BrowserAnimationsModule],
     }).compileComponents();

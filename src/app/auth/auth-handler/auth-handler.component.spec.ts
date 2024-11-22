@@ -6,6 +6,7 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { AuthService } from '../../services/auth/auth.service';
 
 describe('AuthHandlerComponent', () => {
   let component: AuthHandlerComponent;
@@ -15,11 +16,17 @@ describe('AuthHandlerComponent', () => {
     await TestBed.configureTestingModule({
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
-        AuthHandlerComponent,
+        {
+          provide: AuthService,
+          useValue: {
+            logged: () => {},
+            logout: () => {},
+            getRole: () => {},
+          },
+        },
       ],
-      imports: [AuthHandlerComponent]
-    })
-    .compileComponents();
+      imports: [AuthHandlerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AuthHandlerComponent);
     component = fixture.componentInstance;

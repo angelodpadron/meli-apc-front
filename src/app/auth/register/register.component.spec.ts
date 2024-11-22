@@ -9,6 +9,7 @@ import {
 } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
+import { AuthService } from '../../services/auth/auth.service';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -17,10 +18,15 @@ describe('RegisterComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [
-        RegisterComponent,
-        LoginComponent,
         provideHttpClient(withInterceptorsFromDi()),
-        { provide: MatDialogRef, useValue: { close: () => of(true) } },
+        {
+          provide: MatDialogRef,
+          useValue: { close: () => of(true) },
+        },
+        {
+          provide: AuthService,
+          useValue: { register: (_args: any) => ({ subscribe: () => {} }) },
+        },
       ],
       imports: [RegisterComponent, BrowserAnimationsModule],
     }).compileComponents();

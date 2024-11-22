@@ -2,6 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { provideRouter } from '@angular/router';
 
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+
 import {
   provideHttpClient,
   withInterceptorsFromDi,
@@ -14,6 +16,11 @@ describe('AppComponent', () => {
         provideHttpClient(withInterceptorsFromDi()),
         provideRouter([]),
         AppComponent,
+        JwtHelperService,
+        {
+          provide: JWT_OPTIONS,
+          useValue: {},
+        },
       ],
       imports: [AppComponent],
     }).compileComponents();

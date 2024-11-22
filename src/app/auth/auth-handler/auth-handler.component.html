@@ -6,6 +6,20 @@
   <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
+  @if(isAdmin()) {
+  <button mat-menu-item routerLink="/most-sold">
+    <mat-icon>bar_chart</mat-icon>
+    Mas comprados</button
+  ><button mat-menu-item routerLink="/most-bookmarked">
+    <mat-icon>bar_chart</mat-icon>
+    Mas guardados
+  </button>
+  <button mat-menu-item routerLink="/top-buyers">
+    <mat-icon>bar_chart</mat-icon>
+    Mejores compradores
+  </button>
+  } @else {
+
   <button mat-menu-item routerLink="/purchases">
     <mat-icon>shopping_cart</mat-icon>
     Compras
@@ -14,6 +28,7 @@
     <mat-icon>favorite</mat-icon>
     Productos guardados
   </button>
+  }
 </mat-menu>
 } @else {
 

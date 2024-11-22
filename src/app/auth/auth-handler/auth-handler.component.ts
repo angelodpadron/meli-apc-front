@@ -30,4 +30,8 @@ export class AuthHandlerComponent {
   logged() {
     return this.authService.logged();
   }
+
+  isAdmin() {
+    return this.authService.getRole() === 'ROLE_ADMIN';
+  }
 }

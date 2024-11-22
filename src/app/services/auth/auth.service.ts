@@ -1,9 +1,9 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {catchError, Observable, tap, throwError} from 'rxjs';
-import {ApiResponse} from '../../models/api-response';
-import {AuthRequest} from "../../models/auth/auth-request";
-import {JwtHelperService} from "@auth0/angular-jwt";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { catchError, Observable, tap, throwError } from 'rxjs';
+import { ApiResponse } from '../../models/api-response';
+import { AuthRequest } from '../../models/auth/auth-request';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
@@ -11,16 +11,14 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 export class AuthService {
   readonly authUrl = 'http://localhost:8080/api/auth';
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
-  }
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
   login(credentials: AuthRequest): Observable<ApiResponse<string>> {
     return this.http
       .post<ApiResponse<string>>(`${this.authUrl}/login`, credentials)
       .pipe(
         tap({
-          next: (response) =>
-            localStorage.setItem('token', response.payload)
+          next: (response) => localStorage.setItem('token', response.payload),
         }),
         catchError(this.handleErrorResponse)
       );
@@ -31,8 +29,7 @@ export class AuthService {
       .post<ApiResponse<string>>(`${this.authUrl}/register`, credentials)
       .pipe(
         tap({
-          next: (response) =>
-            localStorage.setItem('token', response.payload)
+          next: (response) => localStorage.setItem('token', response.payload),
         }),
         catchError(this.handleErrorResponse)
       );
@@ -54,7 +51,7 @@ export class AuthService {
   }
 
   getRole(): string {
-    return this.jwtHelper.decodeToken(this.getToken()!)['roles']
+    return this.jwtHelper.decodeToken(this.getToken()!)['roles'];
   }
 
   logged(): boolean {
