@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BookmarkRequest } from '../../models/bookmark/bookmark-request';
 import { map, Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../../models/api-response';
 import { AuthService } from '../auth/auth.service';
 import { BookmarkSummary } from '../../models/bookmark/bookmark-summary';
@@ -24,64 +24,35 @@ export class BookmarkService {
       });
     }
 
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken()}`,
-    });
-
     return this.http
-      .post<ApiResponse<BookmarkRequest>>(`${this.baseUrl}`, BookmarkRequest, {
-        headers,
-      })
+      .post<ApiResponse<BookmarkRequest>>(this.baseUrl, BookmarkRequest)
       .pipe(map((response) => response.payload));
   }
 
   getBookmarks(): Observable<BookmarkSummary[]> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken()}`,
-    });
-
     return this.http
-      .get<ApiResponse<BookmarkSummary[]>>(`${this.baseUrl}`, { headers })
+      .get<ApiResponse<BookmarkSummary[]>>(this.baseUrl)
       .pipe(map((response) => response.payload));
   }
 
   getBookmarkDetails(bookmarkId: number): Observable<BookmarkDetails> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken()}`,
-    });
-
     return this.http
-      .get<ApiResponse<BookmarkDetails>>(`${this.baseUrl}/${bookmarkId}`, {
-        headers,
-      })
+      .get<ApiResponse<BookmarkDetails>>(`${this.baseUrl}/${bookmarkId}`)
       .pipe(map((response) => response.payload));
   }
 
   deleteBookmark(bookmarkId: number): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken()}`,
-    });
-
-    return this.http.delete<ApiResponse<any>>(`${this.baseUrl}/${bookmarkId}`, {
-      headers,
-    });
+    return this.http.delete<ApiResponse<any>>(`${this.baseUrl}/${bookmarkId}`);
   }
 
   editBookmark(
     bookmarkId: number,
     bookmarkRequest: BookmarkRequest
   ): Observable<BookmarkDetails> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken()}`,
-    });
-
     return this.http
       .put<ApiResponse<BookmarkDetails>>(
         `${this.baseUrl}/${bookmarkId}`,
-        bookmarkRequest,
-        {
-          headers,
-        }
+        bookmarkRequest
       )
       .pipe(map((response) => response.payload));
   }

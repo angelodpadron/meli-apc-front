@@ -5,7 +5,7 @@ import { ToolbarComponent } from './toolbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 
-import { AuthHandlerComponent } from '../../../auth/auth-handler/auth-handler.component';
+import { AuthHandlerComponent } from '../../../views/auth/auth-handler/auth-handler.component';
 import { AuthService } from '../../../services/auth/auth.service';
 
 describe('ToolbarComponent', () => {

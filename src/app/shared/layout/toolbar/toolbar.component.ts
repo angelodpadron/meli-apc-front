@@ -5,7 +5,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { AuthHandlerComponent } from '../../../auth/auth-handler/auth-handler.component';
+import { AuthHandlerComponent } from '../../../views/auth/auth-handler/auth-handler.component';
 
 @Component({
   selector: 'app-toolbar',
