@@ -7,6 +7,14 @@
 </button>
 <mat-menu #menu="matMenu">
   @if(isAdmin()) {
+  <button mat-menu-item routerLink="/registered-users">
+    <mat-icon>people</mat-icon>
+    Usuarios registrados
+  </button>
+    <button mat-menu-item routerLink="/bookmarked-products">
+    <mat-icon>save</mat-icon>
+    Productos guardados
+  </button>
   <button mat-menu-item routerLink="/most-sold">
     <mat-icon>bar_chart</mat-icon>
     Mas comprados</button
@@ -25,7 +33,7 @@
     Compras
   </button>
   <button mat-menu-item routerLink="/bookmarks">
-    <mat-icon>favorite</mat-icon>
+    <mat-icon>save</mat-icon>
     Productos guardados
   </button>
   }

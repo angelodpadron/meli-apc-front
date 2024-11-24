@@ -7,6 +7,10 @@ import { MostSoldListComponent } from './views/admin/most-sold-list/most-sold-li
 import { MostBookmarkedListComponent } from './views/admin/most-bookmarked-list/most-bookmarked-list.component';
 import { TopBuyersListComponent } from './views/admin/top-buyers-list/top-buyers-list.component';
 import { isAdminGuard } from './guards/is-admin.guard';
+import {RegisteredUsersListComponent} from "./views/admin/registered-users-list/registered-users-list.component";
+import {
+  BookmarkedProductsListComponent
+} from "./views/admin/bookmarked-products-list/bookmarked-products-list.component";
 
 export const routes: Routes = [
   {
@@ -38,4 +42,14 @@ export const routes: Routes = [
     component: TopBuyersListComponent,
     canActivate: [isLoggedInGuard, isAdminGuard],
   },
+  {
+    path: 'registered-users',
+    component: RegisteredUsersListComponent,
+    canActivate: [isLoggedInGuard, isAdminGuard],
+  },
+  {
+    path: 'bookmarked-products',
+    component: BookmarkedProductsListComponent,
+    canActivate: [isLoggedInGuard, isAdminGuard]
+  }
 ];

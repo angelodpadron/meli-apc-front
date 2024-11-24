@@ -5,6 +5,7 @@ import { ProductBookmarkQuantity } from '../../models/admin/product-bookmark-qua
 import { ApiResponse } from '../../models/api-response';
 import { ProductSaleCount } from '../../models/admin/product-sale-count';
 import { UserPurchaseCount } from '../../models/admin/user-purchase-count';
+import {UserBasicResume} from "../../models/admin/user-basic-resume";
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +35,21 @@ export class AdminService {
         `${this.adminUrl}/top-five-purchasers`
       )
       .pipe(map((response) => response.payload));
+  }
+
+  registeredUsers(): Observable<UserBasicResume[]> {
+    return this.http
+      .get<ApiResponse<UserBasicResume[]>>(
+        `${this.adminUrl}/registered-users`
+      )
+      .pipe(map((response) => response.payload));
+  }
+
+  bookmarkedProducts(): Observable<ProductBookmarkQuantity[]> {
+    return this.http
+      .get<ApiResponse<ProductBookmarkQuantity[]>>(
+        `${this.adminUrl}/bookmarked-products`
+      )
+      .pipe(map((response) => response.payload))
   }
 }
