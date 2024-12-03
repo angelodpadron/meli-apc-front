@@ -1,27 +1,59 @@
 # Meli APC
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+[![Angular](https://img.shields.io/badge/Angular-18-red)](https://angular.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.2-blue)](https://www.typescriptlang.org/)
 
-## Development server
+## 📖 Overview
+Este repositorio contiene el frontend de Meli APC, Asesor Personal de Compras. Proyecto de la materia Practicas de Desarrollo de Software (UNQ).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🌐 Enlaces Útiles
+- 🔗 [Repositorio del Backend de Meli APC](https://github.com/angelodpadron/meli-apc-back)
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🛠 Tecnologías Utilizadas
+- **Lenguaje**: TypeScript 5.5.2
+- **Framework**: Angular 18
+- **Gestion de dependencias**: npm
+- **Contenerización**: Docker
 
-## Build
+## 📋 Requisitos
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Node v22.11.0 o superior**
+- **npm 10.9.0 o superior**
+- La API de [Meli APC](https://github.com/angelodpadron/meli-apc-back) corriendo localmente o en un entorno accesible.
 
-## Running unit tests
+>Nota: la app tambien se puede ejecutar mediante Docker, utilizando el archivo Dockerfile del repositorio o bien la imagen de [Docker Hub](https://hub.docker.com/r/angelodpadron/meli-apc-front/tags)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## ⚙️ Configuración y Ejecución
+1. **Instala las dependencias**:  
+   
+   En el directorio raíz del proyecto, ejecutar el siguiente comando en una terminal:
 
-## Running end-to-end tests
+   ```bash
+   npm install
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. **Configura el entorno**:
 
-## Further help
+    Crear un archivo .env (o modifica environment.ts) con las siguientes variables:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+    API_BASE_URL: URL base del backend (por ejemplo, http://localhost:8080).
+
+3. **Ejecutar la aplicacion**
+
+    Iniciar el servidor de desarrollo con el siguiente comando:
+    ```bash
+    npm run start
+    ```
+
+    La aplicacion estara disponible en http://localhost:4200
+
+## 🧪 Tests
+Es posible ejecutar los tests del proyecto utilizando el siguiente comando:
+```bash
+npm run test
+  ```
+
+## 🛡 Disclaimer
+Este proyecto es didáctico y **no está destinado para realizar compras reales** en MercadoLibre, ni diseñado para entornos de producción.
