@@ -4,12 +4,13 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 import { ApiResponse } from '../../models/api-response';
 import { AuthRequest } from '../../models/auth/auth-request';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  readonly authUrl = 'http://localhost:8080/api/auth';
+  readonly authUrl = environment.apiBaseUrl + '/api/auth';
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 

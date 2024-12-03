@@ -6,12 +6,14 @@ import { ApiResponse } from '../../models/api-response';
 import { ProductSaleCount } from '../../models/admin/product-sale-count';
 import { UserPurchaseCount } from '../../models/admin/user-purchase-count';
 import {UserBasicResume} from "../../models/admin/user-basic-resume";
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  readonly adminUrl = 'http://localhost:8080/api/admin';
+
+  readonly adminUrl = environment.apiBaseUrl + '/api/admin';
 
   constructor(private http: HttpClient) {}
 
