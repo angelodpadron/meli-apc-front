@@ -51,11 +51,18 @@ export class AuthService {
   }
 
   getRole(): string {
+    if (!this.logged()) {
+      throw new Error("Error getting user roles: No user authenticated")
+    }
     return this.jwtHelper.decodeToken(this.getToken()!)['roles'];
   }
 
   logged(): boolean {
-    return !!localStorage.getItem('token');
+    const expired = this.jwtHelper.isTokenExpired(this.getToken());
+
+    if (expired) this.logout();
+
+    return !expired;
   }
 
   logout(): void {
