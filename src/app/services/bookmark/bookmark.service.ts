@@ -6,6 +6,7 @@ import { ApiResponse } from '../../models/api-response';
 import { AuthService } from '../auth/auth.service';
 import { BookmarkSummary } from '../../models/bookmark/bookmark-summary';
 import { BookmarkDetails } from '../../models/bookmark/bookmark-details';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ import { BookmarkDetails } from '../../models/bookmark/bookmark-details';
 export class BookmarkService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  private baseUrl = 'http://localhost:8080/api/bookmarks';
+  private baseUrl = environment.apiBaseUrl + '/api/bookmarks';
 
   createBookmark(
     BookmarkRequest: BookmarkRequest
