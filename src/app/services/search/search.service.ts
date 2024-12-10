@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { MeliSearchResponse } from '../../models/search/meli-search-response';
 import { ApiResponse } from '../../models/api-response';
 import { ProductDetails } from '../../models/product/product-details';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { ProductDetails } from '../../models/product/product-details';
 export class SearchService {
   constructor(private http: HttpClient) {}
 
-  private baseUrl = 'http://localhost:8080/api/products';
+  private baseUrl = environment.apiBaseUrl + '/api/products';
 
   findByKeyword(
     searchTerm: string,

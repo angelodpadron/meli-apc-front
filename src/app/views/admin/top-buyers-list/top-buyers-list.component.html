@@ -1,23 +1,39 @@
 <h3>Top 5: Usuarios mas compradores</h3>
 
-<table mat-table [dataSource]="topBuyers">
-  <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef>Nro.</th>
-    <td mat-cell *matCellDef="let item">{{ topBuyers.indexOf(item) + 1 }}</td>
-  </ng-container>
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef>Email</th>
-    <td mat-cell *matCellDef="let item">{{ item.email }}</td>
-  </ng-container>
-  <ng-container matColumnDef="total_spend">
-    <th mat-header-cell *matHeaderCellDef>Total gastado</th>
-    <td mat-cell *matCellDef="let item">{{ item.total_spend | currency }}</td>
-  </ng-container>
-  <ng-container matColumnDef="total_items">
-    <th mat-header-cell *matHeaderCellDef>Items comprados</th>
-    <td mat-cell *matCellDef="let item">{{ item.total_items }}</td>
-  </ng-container>
+@if (topBuyers.length) {
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+  <div class="container">
+    <div class="chart-container">
+      <app-pie-chart [data]="data"/>
+    </div>
+    <div class="table-container">
+      <table mat-table [dataSource]="topBuyers">
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef>Nro.</th>
+          <td mat-cell *matCellDef="let item">{{ topBuyers.indexOf(item) + 1 }}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let item">{{ item.email }}</td>
+        </ng-container>
+        <ng-container matColumnDef="total_spend">
+          <th mat-header-cell *matHeaderCellDef>Total gastado</th>
+          <td mat-cell *matCellDef="let item">{{ item.total_spend | currency }}</td>
+        </ng-container>
+        <ng-container matColumnDef="total_items">
+          <th mat-header-cell *matHeaderCellDef>Items comprados</th>
+          <td mat-cell *matCellDef="let item">{{ item.total_items }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+} @else {
+  <div class="centered-text">
+    <p>{{ emptyListMessage }}</p>
+  </div>
+}
+
+
