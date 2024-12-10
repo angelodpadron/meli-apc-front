@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { PurchaseResponse } from '../../models/purchase/purchase-response';
 import { AuthService } from '../auth/auth.service';
 import { ApiResponse } from '../../models/api-response';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ import { ApiResponse } from '../../models/api-response';
 export class PurchaseService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  private baseUrl = 'http://localhost:8080/api/purchases';
+  private baseUrl = environment.apiBaseUrl + '/api/purchases';
 
   buyProduct(purchaseRequest: PurchaseRequest): Observable<PurchaseResponse> {
     if (!this.authService.logged()) {

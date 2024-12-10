@@ -4,12 +4,13 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 import { ApiResponse } from '../../models/api-response';
 import { AuthRequest } from '../../models/auth/auth-request';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  readonly authUrl = 'http://localhost:8080/api/auth';
+  readonly authUrl = environment.apiBaseUrl + '/api/auth';
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
@@ -51,11 +52,18 @@ export class AuthService {
   }
 
   getRole(): string {
+    if (!this.logged()) {
+      throw new Error("Error getting user roles: No user authenticated")
+    }
     return this.jwtHelper.decodeToken(this.getToken()!)['roles'];
   }
 
   logged(): boolean {
-    return !!localStorage.getItem('token');
+    const expired = this.jwtHelper.isTokenExpired(this.getToken());
+
+    if (expired) this.logout();
+
+    return !expired;
   }
 
   logout(): void {
