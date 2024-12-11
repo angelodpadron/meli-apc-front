@@ -5,6 +5,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input
+        id="email-input"
         type="email"
         placeholder="some@email.com"
         formControlName="email"
@@ -14,7 +15,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Contraseña</mat-label>
-      <input matInput type="password" formControlName="password" required="" />
+      <input id="password-input" matInput type="password" formControlName="password" required="" />
     </mat-form-field>
   </form>
   @if(errorMessage) {
@@ -28,7 +29,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancelar</button>
-  <button mat-button [disabled]="registerForm.invalid" (click)="onRegister()">
+  <button mat-button id="register-button" [disabled]="registerForm.invalid" (click)="onRegister()">
     Registrarse
   </button>
 </mat-dialog-actions>
